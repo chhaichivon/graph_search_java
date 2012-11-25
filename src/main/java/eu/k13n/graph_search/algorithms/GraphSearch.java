@@ -1,6 +1,8 @@
 package eu.k13n.graph_search.algorithms;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import eu.k13n.graph_search.shared.Frontier;
 import eu.k13n.graph_search.shared.Node;
@@ -11,6 +13,11 @@ import eu.k13n.graph_search.shared.State;
 public abstract class GraphSearch {
 	public static boolean DEBUG = false;
 	protected Frontier frontier;
+	private Set<State> exploredStates;
+	
+	public GraphSearch() {
+		exploredStates = new HashSet<>();
+	}
 	
 	public Path search() {
 		Node endNode = run();
@@ -21,21 +28,23 @@ public abstract class GraphSearch {
 		int counter = 0;
 		
 		while (!frontier.isEmpty()) {
-			Node node = frontier.select();
-			frontier.remove();
+			Node node = frontier.remove();
 			
 			State state = node.getState();
 			if (state.isGoal()) {
 				return node;
 			}
+			exploredStates.add(state);
 			
 			counter++;
 			if (DEBUG) System.out.println(counter);
 			
 			List<State> neighbors = state.getNeighbors();
 			for (State neighbor : neighbors) {
-				Node nextNode = new Node(neighbor, node);
-				frontier.add(nextNode);
+				if (!exploredStates.contains(neighbor)) {
+					Node nextNode = new Node(neighbor, node);
+					frontier.add(nextNode);
+				}
 			}
 		}
 		return null;

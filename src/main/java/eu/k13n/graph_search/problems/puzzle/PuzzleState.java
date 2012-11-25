@@ -1,6 +1,7 @@
 package eu.k13n.graph_search.problems.puzzle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -54,7 +55,7 @@ public class PuzzleState implements State {
 	
 	public PuzzleState(byte[] cells) {
 		this.dimension = (int) Math.sqrt(cells.length);
-		this.cells = new byte[dimension*dimension];
+		this.cells = new byte[cells.length];
 		for (int i=0; i<cells.length; i++) {
 			this.cells[i] = cells[i];
 			if (cells[i] == 0) this.emptyPosition = i;
@@ -76,32 +77,25 @@ public class PuzzleState implements State {
 		
 		if (CellPosition.validPosition(dimension, row+1, col)) {
 			PuzzleState state = new PuzzleState(cells);
-			state.swap(row, col, row+1, col);
+			state.swapEmpty(row+1, col);
 			neighbors.add(state);
 		}
 		if (CellPosition.validPosition(dimension, row-1, col)) {
 			PuzzleState state = new PuzzleState(cells);
-			state.swap(row, col, row-1, col);
+			state.swapEmpty(row-1, col);
 			neighbors.add(state);
 		}
 		if (CellPosition.validPosition(dimension, row, col+1)) {
 			PuzzleState state = new PuzzleState(cells);
-			state.swap(row, col, row, col+1);
+			state.swapEmpty(row, col+1);
 			neighbors.add(state);
 		}
 		if (CellPosition.validPosition(dimension, row, col-1)) {
 			PuzzleState state = new PuzzleState(cells);
-			state.swap(row, col, row, col-1);
+			state.swapEmpty(row, col-1);
 			neighbors.add(state);
 		}
 		return neighbors;
-	}
-	
-	public void swap(int row1, int col1, int row2, int col2) {
-		byte val1 = cells[row1*dimension+col1];
-		byte val2 = cells[row2*dimension+col2];
-		cells[row1*dimension+col1] = val2; 
-		cells[row2*dimension+col2] = val1; 
 	}
 	
 	public CellPosition getEmptyPosition() {
@@ -114,21 +108,12 @@ public class PuzzleState implements State {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof PuzzleState)) {
-			return false;
-		}
-		
-		PuzzleState other = (PuzzleState)obj;
-		if (dimension != other.dimension) {
-			return false;
-		}
-		
-		for (int i=0; i<cells.length; i++) {
-			if (cells[i] != other.cells[i]) {
-				return false;
-			}
-		}
-		return true;
+		return (obj instanceof PuzzleState) && obj.hashCode() == this.hashCode();
+	}
+	
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(cells);
 	}
 	
 	public String toString() {
@@ -143,5 +128,12 @@ public class PuzzleState implements State {
 			}
 		}
 		return builder.toString();
+	}
+	
+	private void swapEmpty(int row, int col) {
+		int newEmptyPosition = row*dimension+col;
+		cells[emptyPosition] = cells[newEmptyPosition]; 
+		cells[row*dimension+col] = 0;
+		emptyPosition = newEmptyPosition;
 	}
 }

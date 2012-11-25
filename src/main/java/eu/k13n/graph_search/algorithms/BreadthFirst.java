@@ -8,7 +8,6 @@ import eu.k13n.graph_search.shared.Node;
 import eu.k13n.graph_search.shared.State;
 
 
-
 public class BreadthFirst extends GraphSearch {
 
 	private class FrontierQueue implements Frontier {
@@ -17,15 +16,10 @@ public class BreadthFirst extends GraphSearch {
 		public FrontierQueue() {
 			queue = new LinkedList<>();
 		}
-		
-		@Override
-		public Node select() {
-			return queue.peek();
-		}
 
 		@Override
-		public void remove() {
-			queue.poll();
+		public Node remove() {
+			return queue.poll();
 		}
 
 		@Override

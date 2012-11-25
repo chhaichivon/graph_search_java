@@ -28,4 +28,14 @@ public class Node {
 	public void setState(State state) {
 		this.state = state;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof Node) && ((Node)obj).state.equals(state);
+	}
+	
+	@Override
+	public int hashCode() {
+		return state.hashCode();
+	}
 }
