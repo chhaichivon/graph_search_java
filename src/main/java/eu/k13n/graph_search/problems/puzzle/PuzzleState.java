@@ -107,6 +107,10 @@ public class PuzzleState implements State {
 		return cells;
 	}
 	
+	public int getDimension() {
+		return dimension;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof PuzzleState) && obj.hashCode() == this.hashCode();
