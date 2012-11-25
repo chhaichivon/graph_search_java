@@ -1,4 +1,6 @@
-package eu.k13n.graph_search.shared;
+package eu.k13n.graph_search.frontiers;
+
+import eu.k13n.graph_search.shared.Node;
 
 public interface Frontier {
 	

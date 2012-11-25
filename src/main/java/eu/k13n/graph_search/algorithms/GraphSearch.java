@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import eu.k13n.graph_search.shared.Frontier;
+import eu.k13n.graph_search.frontiers.Frontier;
 import eu.k13n.graph_search.shared.Node;
 import eu.k13n.graph_search.shared.Path;
 import eu.k13n.graph_search.shared.State;
