@@ -3,6 +3,7 @@ package eu.k13n.graph_search.shared;
 public class Node {
 	private Node parent;
 	private State state;
+	private int cost;
 	
 	public Node(State state) {
 		this.state = state;
@@ -13,12 +14,20 @@ public class Node {
 		this.state = state;
 	}
 	
+	public int getCost() {
+		return cost;
+	}
+	
 	public Node getParent() {
 		return parent;
 	}
 	
 	public State getState() {
 		return state;
+	}
+	
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 	
 	public void setParent(Node parent) {

@@ -4,6 +4,6 @@ import java.util.LinkedList;
 
 public interface State {
 	
-	public LinkedList<State> getNeighbors();
+	public LinkedList<StateChange> getNeighbors();
 	public boolean isGoal();
 }

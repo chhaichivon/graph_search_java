@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import eu.k13n.graph_search.shared.State;
+import eu.k13n.graph_search.shared.StateChange;
 
 
 public class PuzzleState implements State {
@@ -68,8 +69,8 @@ public class PuzzleState implements State {
 	}
 	
 	@Override
-	public LinkedList<State> getNeighbors() {
-		LinkedList<State> neighbors = new LinkedList<>();
+	public LinkedList<StateChange> getNeighbors() {
+		LinkedList<StateChange> stateChanges = new LinkedList<>();
 		
 		CellPosition position = new CellPosition(emptyPosition);
 		int row = position.getRowIndex(dimension);
@@ -78,24 +79,24 @@ public class PuzzleState implements State {
 		if (CellPosition.validPosition(dimension, row+1, col)) {
 			PuzzleState state = new PuzzleState(cells);
 			state.swapEmpty(row+1, col);
-			neighbors.add(state);
+			stateChanges.add(new StateChange(this, state, 1));
 		}
 		if (CellPosition.validPosition(dimension, row-1, col)) {
 			PuzzleState state = new PuzzleState(cells);
 			state.swapEmpty(row-1, col);
-			neighbors.add(state);
+			stateChanges.add(new StateChange(this, state, 1));
 		}
 		if (CellPosition.validPosition(dimension, row, col+1)) {
 			PuzzleState state = new PuzzleState(cells);
 			state.swapEmpty(row, col+1);
-			neighbors.add(state);
+			stateChanges.add(new StateChange(this, state, 1));
 		}
 		if (CellPosition.validPosition(dimension, row, col-1)) {
 			PuzzleState state = new PuzzleState(cells);
 			state.swapEmpty(row, col-1);
-			neighbors.add(state);
+			stateChanges.add(new StateChange(this, state, 1));
 		}
-		return neighbors;
+		return stateChanges;
 	}
 	
 	public CellPosition getEmptyPosition() {

@@ -8,6 +8,7 @@ import eu.k13n.graph_search.shared.Frontier;
 import eu.k13n.graph_search.shared.Node;
 import eu.k13n.graph_search.shared.Path;
 import eu.k13n.graph_search.shared.State;
+import eu.k13n.graph_search.shared.StateChange;
 
 
 public abstract class GraphSearch {
@@ -39,10 +40,12 @@ public abstract class GraphSearch {
 			counter++;
 			if (DEBUG) System.out.println(counter);
 			
-			List<State> neighbors = state.getNeighbors();
-			for (State neighbor : neighbors) {
-				if (!exploredStates.contains(neighbor)) {
-					Node nextNode = new Node(neighbor, node);
+			List<StateChange> stateChanges = state.getNeighbors();
+			for (StateChange stateChange : stateChanges) {
+				State followState = stateChange.getFollowState();
+				if (!exploredStates.contains(stateChange.getFollowState())) {
+					Node nextNode = new Node(followState, node);
+					nextNode.setCost(node.getCost()+stateChange.getCost());
 					frontier.add(nextNode);
 				}
 			}

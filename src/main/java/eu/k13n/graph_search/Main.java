@@ -1,6 +1,8 @@
 package eu.k13n.graph_search;
 
 import eu.k13n.graph_search.algorithms.BreadthFirst;
+import eu.k13n.graph_search.algorithms.DepthFirst;
+import eu.k13n.graph_search.algorithms.LowestCostFirst;
 import eu.k13n.graph_search.problems.puzzle.PuzzleState;
 import eu.k13n.graph_search.shared.Path;
 
@@ -11,9 +13,14 @@ public class Main {
 		System.out.println();
 		System.out.println("starting computation");
 		
-		long startTime = System.currentTimeMillis();
 		BreadthFirst bfs = new BreadthFirst(initialState);
-		Path path = bfs.search();
+		DepthFirst dfs = new DepthFirst(initialState);
+		LowestCostFirst lcfs = new LowestCostFirst(initialState);
+
+		long startTime = System.currentTimeMillis();
+//		Path path = bfs.search();
+//		Path path = dfs.search();
+		Path path = lcfs.search();
 		long elapsedTIme = System.currentTimeMillis() - startTime;
 		
 		System.out.println("Initial State");
