@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import eu.k13n.graph_search.frontiers.Frontier;
+import eu.k13n.graph_search.shared.Benchmark;
 import eu.k13n.graph_search.shared.Node;
 import eu.k13n.graph_search.shared.Path;
 import eu.k13n.graph_search.shared.State;
@@ -15,14 +16,18 @@ public abstract class GraphSearch {
 	protected Frontier frontier;
 	private Set<State> exploredStates;
 	private boolean cycleDetection;
+	private Benchmark benchmark;
 	
 	public GraphSearch() {
 		exploredStates = new HashSet<>();
-		this.cycleDetection = true;
+		cycleDetection = true;
 	}
 	
 	public Path search() {
+		benchmark = new Benchmark();
+		benchmark.startTimeMeasurement();
 		Node endNode = run();
+		benchmark.stopTimeMeasurement();
 		return Path.constructFromEndNode(endNode);
 	}
 	
@@ -37,6 +42,7 @@ public abstract class GraphSearch {
 			if (cycleDetection) {
 				exploredStates.add(state);
 			}
+			benchmark.increaseCycleCount();
 			
 			List<StateChange> stateChanges = state.getPossibleStateChanges();
 			this.reorderStateChanges(stateChanges);
@@ -58,6 +64,10 @@ public abstract class GraphSearch {
 	
 	public void disableCycleDetection() {
 		this.cycleDetection = false;
+	}
+	
+	public Benchmark getBenchmark() {
+		return benchmark;
 	}
 	
 	protected void reorderStateChanges(List<StateChange> stateChanges) {}
