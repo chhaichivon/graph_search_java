@@ -39,6 +39,7 @@ public abstract class GraphSearch {
 			}
 			
 			List<StateChange> stateChanges = state.getPossibleStateChanges();
+			this.reorderStateChanges(stateChanges);
 			for (StateChange stateChange : stateChanges) {
 				State followState = stateChange.getFollowState();
 				if (!cycleDetection || !exploredStates.contains(stateChange.getFollowState())) {
@@ -58,4 +59,6 @@ public abstract class GraphSearch {
 	public void disableCycleDetection() {
 		this.cycleDetection = false;
 	}
+	
+	protected void reorderStateChanges(List<StateChange> stateChanges) {}
 }
