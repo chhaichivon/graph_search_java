@@ -23,7 +23,7 @@ public abstract class GraphSearch {
 	
 	public Path search() {
 		Node endNode = run();
-		return Path.pathFromEndNode(endNode);
+		return Path.constructFromEndNode(endNode);
 	}
 	
 	private final Node run() {

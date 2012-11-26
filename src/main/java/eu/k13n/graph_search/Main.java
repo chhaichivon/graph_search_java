@@ -1,6 +1,7 @@
 package eu.k13n.graph_search;
 
 import eu.k13n.graph_search.algorithms.AStar;
+import eu.k13n.graph_search.algorithms.BestFirst;
 import eu.k13n.graph_search.algorithms.BreadthFirst;
 import eu.k13n.graph_search.algorithms.DepthFirst;
 import eu.k13n.graph_search.algorithms.LowestCostFirst;
@@ -20,12 +21,16 @@ public class Main {
 		BreadthFirst bfs = new BreadthFirst(initialState);
 		DepthFirst dfs = new DepthFirst(initialState);
 		LowestCostFirst lcfs = new LowestCostFirst(initialState);
+		BestFirst bestfs1 = new BestFirst(initialState, new HammingDistance(PuzzleState.getGoalState(3)));
+		BestFirst bestfs2 = new BestFirst(initialState, new ManhattenDistance(PuzzleState.getGoalState(3)));
 		AStar astar1 = new AStar(initialState, new HammingDistance(PuzzleState.getGoalState(3)));
 		AStar astar2 = new AStar(initialState, new ManhattenDistance(PuzzleState.getGoalState(3)));
 		
 //		bfs.disableCycleDetection();
 //		dfs.disableCycleDetection();
 //		lcfs.disableCycleDetection();
+//		bestfs1.disableCycleDetection();
+//		bestfs2.disableCycleDetection();
 //		astar1.disableCycleDetection();
 //		astar2.disableCycleDetection();
 		
@@ -34,6 +39,8 @@ public class Main {
 //		path = bfs.search();
 //		path = dfs.search();
 //		path = lcfs.search();
+//		path = bestfs1.search();
+//		path = bestfs2.search();
 //		path = astar1.search();
 		path = astar2.search();
 		long elapsedTIme = System.currentTimeMillis() - startTime;

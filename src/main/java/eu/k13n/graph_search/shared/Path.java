@@ -14,7 +14,7 @@ public class Path {
 		return nodes;
 	}
 	
-	public static Path pathFromEndNode(Node node) {
+	public static Path constructFromEndNode(Node node) {
 		Path path = new Path();
 		while (node != null) {
 			path.nodes.addFirst(node);
