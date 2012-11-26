@@ -12,8 +12,8 @@ import eu.k13n.graph_search.shared.Path;
 public class Main {
 
 	public static void main(String[] args) {		
-//		PuzzleState initialState = PuzzleState.createRandomState(3);
-		PuzzleState initialState = new PuzzleState(new byte[]{6, 0, 8, 7, 4, 5, 3, 1, 2});
+		PuzzleState initialState = PuzzleState.createRandomState(3);
+//		PuzzleState initialState = new PuzzleState(new byte[]{6, 0, 8, 7, 4, 5, 3, 1, 2});
 		System.out.println();
 		System.out.println("starting computation");
 		
@@ -22,6 +22,12 @@ public class Main {
 		LowestCostFirst lcfs = new LowestCostFirst(initialState);
 		AStar astar1 = new AStar(initialState, new HammingDistance(PuzzleState.getGoalState(3)));
 		AStar astar2 = new AStar(initialState, new ManhattenDistance(PuzzleState.getGoalState(3)));
+		
+//		bfs.disableCycleDetection();
+//		dfs.disableCycleDetection();
+//		lcfs.disableCycleDetection();
+//		astar1.disableCycleDetection();
+//		astar2.disableCycleDetection();
 		
 		long startTime = System.currentTimeMillis();
 		Path path = null;

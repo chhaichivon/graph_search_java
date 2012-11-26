@@ -12,12 +12,13 @@ import eu.k13n.graph_search.shared.StateChange;
 
 
 public abstract class GraphSearch {
-	public static boolean DEBUG = false;
 	protected Frontier frontier;
 	private Set<State> exploredStates;
+	private boolean cycleDetection;
 	
 	public GraphSearch() {
 		exploredStates = new HashSet<>();
+		this.cycleDetection = true;
 	}
 	
 	public Path search() {
@@ -26,8 +27,6 @@ public abstract class GraphSearch {
 	}
 	
 	private final Node run() {
-		int counter = 0;
-		
 		while (!frontier.isEmpty()) {
 			Node node = frontier.remove();
 			
@@ -35,15 +34,14 @@ public abstract class GraphSearch {
 			if (state.isGoal()) {
 				return node;
 			}
-			exploredStates.add(state);
-			
-			counter++;
-			if (DEBUG) System.out.println(counter);
+			if (cycleDetection) {
+				exploredStates.add(state);
+			}
 			
 			List<StateChange> stateChanges = state.getNeighbors();
 			for (StateChange stateChange : stateChanges) {
 				State followState = stateChange.getFollowState();
-				if (!exploredStates.contains(stateChange.getFollowState())) {
+				if (!cycleDetection || !exploredStates.contains(stateChange.getFollowState())) {
 					Node nextNode = new Node(followState, node);
 					nextNode.setCost(node.getCost()+stateChange.getCost());
 					frontier.add(nextNode);
@@ -51,5 +49,13 @@ public abstract class GraphSearch {
 			}
 		}
 		return null;
+	}
+	
+	public void enableCycleDetection() {
+		this.cycleDetection = true;
+	}
+	
+	public void disableCycleDetection() {
+		this.cycleDetection = false;
 	}
 }
