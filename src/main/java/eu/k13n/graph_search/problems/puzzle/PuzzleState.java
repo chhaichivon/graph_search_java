@@ -69,7 +69,7 @@ public class PuzzleState implements State {
 	}
 	
 	@Override
-	public LinkedList<StateChange> getNeighbors() {
+	public LinkedList<StateChange> getPossibleStateChanges() {
 		LinkedList<StateChange> stateChanges = new LinkedList<>();
 		
 		CellPosition position = new CellPosition(emptyPosition);

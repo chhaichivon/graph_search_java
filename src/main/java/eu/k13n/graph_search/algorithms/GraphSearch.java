@@ -38,7 +38,7 @@ public abstract class GraphSearch {
 				exploredStates.add(state);
 			}
 			
-			List<StateChange> stateChanges = state.getNeighbors();
+			List<StateChange> stateChanges = state.getPossibleStateChanges();
 			for (StateChange stateChange : stateChanges) {
 				State followState = stateChange.getFollowState();
 				if (!cycleDetection || !exploredStates.contains(stateChange.getFollowState())) {
