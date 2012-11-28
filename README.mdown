@@ -1,0 +1,55 @@
+Graph Searching Algorithms in Java
+==================================
+
+This project was developed during the Intelligent Systems course at the Free University of Bolzano.
+The aim of this project is to implement various standard graph searching algorithms and to use them to solve some standard AI problems.
+
+
+Implemented Algorithms
+----------------------
+
+* Without Heuristics:
+  * [Breadth First Search](http://en.wikipedia.org/wiki/Breadth-first_search)
+  * [Depth First Search](http://en.wikipedia.org/wiki/Depth-first_search)
+  * [Lowest Cost First](http://artint.info/html/ArtInt_55.html)
+* With Heuristics:
+  * [Best First Search](http://en.wikipedia.org/wiki/Best-first_search)
+  * Heuristic Depth First Search
+  * [A\*](http://en.wikipedia.org/wiki/A*_search_algorithm)
+  * [Iterative Deepening A\*](http://en.wikipedia.org/wiki/IDA*)
+
+Implemented Problems
+--------------------
+
+  
+#### [Towers of Hanoi](http://en.wikipedia.org/wiki/Tower_of_Hanoi)
+
+This is not really a standard AI problem, but can be solved using graph searching algorithms. There exists a recursive algorithm that computes the optimal solution, yet it is nice to see how the graph searching algorithms find the best solution too.
+
+
+#### [N-Puzzle Problem](http://en.wikipedia.org/wiki/Fifteen_puzzle)
+
+The N-Puzzle problem is a popular game where the player has to shift numerated tiles on a grid in such a way that at the end the numbers are ordered. The program is able to solve the 8 puzzle problem efficiently. Using the Iterative Deepening A\* search strategy it is possible to solve also the 15 puzzle problem.
+
+
+##### Spell Checking
+
+Given a dictionary of known words the program tries to correct misspelled words with the most promising replacement. Again the Iterative Deepening A\* is the most efficient one and is able to suggest corrections also for long input strings.
+
+
+Implemented Heuristics
+----------------------
+
+#### [Hamming Distance](http://en.wikipedia.org/wiki/Hamming_distance)
+
+This heuristic is applied in the N-Puzzle Problem and in the Spell Checking Problem. For example, given a misspelled word and a correct word, this heuristic tells how many "errors" are in the misspelled word, so in how many places the strings differ.
+
+
+#### [Manhatten Distance](http://en.wikipedia.org/wiki/Taxicab_geometry )
+
+It is applied in the N-Puzzle Problem and tells for a certain configuration of the numbers how far away misplaced numbers are from their correct position. So it is in some sense the Eucledian Distance from the wrong place to the right position.
+
+
+#### [Levenshtein Distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
+
+The Levenshtein Distance is applied in the Spell Checking problem. The distance knows three operations that can be applied to a string, insertion, deletion, changing a letter. The algorithm computes the minimum number of operations needed to transform one string to another.
