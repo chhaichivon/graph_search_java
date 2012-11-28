@@ -14,9 +14,9 @@ import eu.k13n.graph_search.shared.StateChange;
 
 public abstract class GraphSearch {
 	protected Frontier frontier;
-	private Set<State> exploredStates;
-	private boolean cycleDetection;
-	private Benchmark benchmark;
+	protected Set<State> exploredStates;
+	protected Benchmark benchmark;
+	protected boolean cycleDetection;
 	
 	public GraphSearch() {
 		exploredStates = new HashSet<>();
@@ -31,7 +31,7 @@ public abstract class GraphSearch {
 		return Path.constructFromEndNode(endNode);
 	}
 	
-	private final Node run() {
+	protected Node run() {
 		while (!frontier.isEmpty()) {
 			Node node = frontier.remove();
 			
